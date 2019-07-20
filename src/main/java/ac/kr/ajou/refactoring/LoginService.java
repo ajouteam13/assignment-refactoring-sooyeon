@@ -5,6 +5,7 @@ import java.util.List;
 public class LoginService {
 
     private final DataBaseService dataBaseService;
+    private final AccountService accountService = new AccountService(this);
 
     public LoginService () {
         this.dataBaseService = new DataBaseService();
@@ -19,7 +20,8 @@ public class LoginService {
                 } else {
                     return false;
                 }
-            } else {
+            } else
+                {
                 return false;
             }
         } else {
@@ -28,16 +30,14 @@ public class LoginService {
     }
 
     public String getUserNameById(String id) {
-        if (dataBaseService.userExists(id)) {
-            Player player = dataBaseService.getPlayerById(id);
-            return player.getUserName();
-        } else {
-            return null;
-        }
+        return accountService.getUserNameById(id);
     }
 
     public List<Player> getAge(int a) {
-        List<Player> allPlayers = dataBaseService.getAllPlayers();
-        return allPlayers;
+        return accountService.getAge(a);
+    }
+
+    public DataBaseService getDataBaseService() {
+        return dataBaseService;
     }
 }
